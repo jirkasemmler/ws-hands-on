@@ -1,0 +1,33 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Workshop Dashboard",
+  description: "Přehled účastníků workshopu v reálném čase",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="cs">
+      <body className="bg-gray-50 text-gray-900 min-h-screen">
+        <nav className="bg-white border-b border-gray-200 px-4 py-3">
+          <div className="max-w-7xl mx-auto flex items-center gap-6">
+            <span className="font-bold text-lg">Workshop Dashboard</span>
+            <Link href="/" className="text-sm text-gray-600 hover:text-gray-900">
+              Dashboard
+            </Link>
+            <Link href="/admin" className="text-sm text-gray-600 hover:text-gray-900">
+              Admin
+            </Link>
+          </div>
+        </nav>
+        <main className="max-w-7xl mx-auto px-4 py-6">{children}</main>
+      </body>
+    </html>
+  );
+}
