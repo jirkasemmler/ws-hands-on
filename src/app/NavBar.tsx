@@ -6,9 +6,10 @@ import { createClient } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 import type { User } from "@supabase/supabase-js";
 
+const supabase = createClient();
+
 export default function NavBar() {
   const [user, setUser] = useState<User | null>(null);
-  const supabase = createClient();
   const router = useRouter();
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export default function NavBar() {
     });
 
     return () => subscription.unsubscribe();
-  }, [supabase]);
+  }, []);
 
   async function handleLogout() {
     await supabase.auth.signOut();

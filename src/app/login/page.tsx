@@ -9,6 +9,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [isRegister, setIsRegister] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const supabase = createClient();
@@ -16,6 +17,7 @@ export default function LoginPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+    setSuccess(null);
     setLoading(true);
 
     const { error } = isRegister
@@ -30,7 +32,7 @@ export default function LoginPage() {
     }
 
     if (isRegister) {
-      setError("Registrace úspěšná! Zkontroluj e-mail pro potvrzení.");
+      setSuccess("Registrace úspěšná! Zkontroluj e-mail pro potvrzení.");
       return;
     }
 
@@ -78,9 +80,10 @@ export default function LoginPage() {
           </div>
 
           {error && (
-            <p className={`text-sm ${error.includes("úspěšná") ? "text-green-600" : "text-red-600"}`}>
-              {error}
-            </p>
+            <p className="text-sm text-red-600">{error}</p>
+          )}
+          {success && (
+            <p className="text-sm text-green-600">{success}</p>
           )}
 
           <button
@@ -96,6 +99,7 @@ export default function LoginPage() {
           onClick={() => {
             setIsRegister(!isRegister);
             setError(null);
+            setSuccess(null);
           }}
           className="w-full text-center text-sm text-gray-500 hover:text-gray-700 mt-4"
         >
